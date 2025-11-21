@@ -8,7 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "proxy:yahoo": "node scripts/proxy/yahoo-proxy.mjs"
+    "proxy": "node scripts/proxy/yahoo-proxy.mjs"
   },
   "dependencies": {
     "axios": "^1.7.2",

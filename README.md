@@ -26,7 +26,7 @@ npm run dev
 1) App calls the proxy at `http://localhost:8787/...`
 2) Proxy forwards to:
    - Yahoo Finance for quotes/history (may rate limit with 429 responses), and
-   - Stooq for quotes/history (no key, EOD) as the first fallback when no Finnhub key.
+   - Stooq for quotes/history (no key, EOD) as the first fallback when no Finnhub key is given.
 3) If both fail, the app uses consistent simulated data so the UI stays usable.
 
 ## What you'll see
@@ -34,13 +34,13 @@ npm run dev
 - Chart with price, 50-day MA, volume, RSI panel; quick actions to buy/sell.
 - Heatmap and top movers (from the fetched subset) — click to load the chart.
 - Portfolio summary, P&L, and backtest results when run.
-For a deep dive on how to read these, see `docs/INTERPRETATION.md`.
+For a deep dive on how to read these, see [`docs/INTERPRETATION.md`](docs/INTERPRETATION.md).
 
 ## Strategy behavior
 - Entry: dip ≥ threshold, price above 200-MA, RSI < oversold, passes quality filters.
 - Exit: RSI > overbought, hit target, hit stop, or max holding days.
 - Allocation: caps positions/sector exposure and skips symbols already held.
-  Full implementation outline and structure live in `docs/IMPLEMENTATION.md`.
+  Full implementation outline and structure live in [`docs/IMPLEMENTATION.md`](docs/IMPLEMENTATION.md).
 
 ## Scripts
 - `npm run dev` – start Vite dev server.
