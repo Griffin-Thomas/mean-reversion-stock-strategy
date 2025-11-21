@@ -44,7 +44,7 @@ For a deep dive on how to read these, see [`docs/INTERPRETATION.md`](docs/INTERP
 
 ## Scripts
 - `npm run dev` – start Vite dev server.
-- `npm run proxy:yahoo` – start the local proxy (Yahoo/Stooq).
+- `npm run proxy` – start the local proxy (Yahoo/Stooq).
 - `npm run lint` – lint.
 - `npm run build` – build for production.
 
