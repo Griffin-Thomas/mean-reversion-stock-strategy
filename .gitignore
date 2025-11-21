@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+
+# Builds and bundles
+dist/
+.vite/
+
+# Env/config secrets
+.env
+.env.local
+
+# TypeScript and Vite build info
+tsconfig.tsbuildinfo
+tsconfig.node.tsbuildinfo
+vite.config.d.ts
+
+# Test artifacts
+test-results/
+test-screenshot.png
+
+# Debug scripts/output
+/debug-test.ts
+/scripts/inspect-amd.ts
+/scripts/playwright-click.mjs
+/tmp/
+
+# OS/editor noise
+.DS_Store
+*.log
