@@ -8,7 +8,7 @@ React/TypeScript dashboard for a "buy the dip" mean-reversion strategy on a subs
 npm install
 
 # 2) Run the free-data proxy (handles CORS for Yahoo/Stooq)
-npm run proxy:yahoo
+npm run proxy
 
 # 3) In another terminal, start the app
 npm run dev

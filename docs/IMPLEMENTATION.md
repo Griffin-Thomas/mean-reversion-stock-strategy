@@ -44,7 +44,7 @@ Caching: quotes are cached for 1 minute, history for 24 hours in IndexedDB.
 
 ## Running locally (free data)
 1) Install deps: `npm install`
-2) Start proxy (Yahoo/Stooq, CORS-safe): `npm run proxy:yahoo`
+2) Start proxy (Yahoo/Stooq, CORS-safe): `npm run proxy`
 3) Dev server: `npm run dev` (open printed URL)
 4) Env (already stubbed):  
    - `VITE_USE_DEMO_DATA=false` for real data (or `true` for simulated)  
