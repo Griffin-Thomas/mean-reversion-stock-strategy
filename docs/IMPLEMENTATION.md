@@ -1,6 +1,6 @@
 # Implementation Notes (Current State)
 
-This app is already built. Below is the concrete description of how it works today, the data flow, and where to tweak behavior.
+This app is already built. Below is the concrete description of how it works today, the data flow, and where to tweak behaviour.
 
 ## Stack
 - React + TypeScript + Vite.
@@ -23,7 +23,7 @@ Caching: quotes are cached for 1 minute, history for 24 hours in IndexedDB.
 - Kept small to respect free-source rate limits; you can extend the slice if needed.
 
 ## Strategy (defaults in `src/utils/constants.ts`)
-- **Entry (BUY)**: day’s drop ≤ `dipThreshold` (-5%), price > 200-MA, RSI < `rsiOversold` (30), passes quality filters (market cap, PE, volume).
+- **Entry (BUY)**: day's drop ≤ `dipThreshold` (-5%), price > 200-MA, RSI < `rsiOversold` (30), passes quality filters (market cap, PE, volume).
 - **Exit (SELL)**: RSI > `rsiOverbought` (70), or price ≥ target (+10%), or price ≤ stop (-8%), or held ≥ 30 days.
 - **Allocation**: max positions 10, 10% per position, max 30% per sector; skips symbols already held.
 - **Signal strength** blends RSI, drop size, volume ratio, and trend alignment.
@@ -53,7 +53,7 @@ Caching: quotes are cached for 1 minute, history for 24 hours in IndexedDB.
    - `VITE_FINNHUB_API_KEY=` (optional; leave blank to stay free)
 
 ## Limitations/notes
-- Free feeds are EOD; intraday moves won’t appear until the next bar. Yahoo may 429; Stooq is the primary free path when no Finnhub key.
+- Free feeds are EOD; intraday moves won't appear until the next bar. Yahoo may 429; Stooq is the primary free path when no Finnhub key.
 - Heatmap and movers reflect only the fetched subset, not the full S&P 500.
 - Backtests run on the same subset and cached history.
 - If data looks stale, clear IndexedDB (site data), restart proxy/dev server, and refresh.

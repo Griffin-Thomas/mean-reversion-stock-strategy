@@ -36,7 +36,7 @@ npm run dev
 - Portfolio summary, P&L, and backtest results when run.
 For a deep dive on how to read these, see [`docs/INTERPRETATION.md`](docs/INTERPRETATION.md).
 
-## Strategy behavior
+## Strategy behaviour
 - Entry: dip ≥ threshold, price above 200-MA, RSI < oversold, passes quality filters.
 - Exit: RSI > overbought, hit target, hit stop, or max holding days.
 - Allocation: caps positions/sector exposure and skips symbols already held.

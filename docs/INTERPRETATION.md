@@ -2,7 +2,7 @@
 
 ## Trading signals
 - **Signal card**: `SYMBOL BUY/SELL`, `Strength %` (0–100: higher = more conviction), `Entry` (current/assumed entry price), `Target` (profit-taking level), `Stop Loss` (protective exit).
-- **Why it triggered**: bullet list shows checks that passed/failed vs the strategy config (e.g., “Dropped -7.82% (threshold: -5%)”, “Price above 200-MA”, “RSI < oversold”). If a condition fails, it won’t appear as a BUY.
+- **Why it triggered**: bullet list shows checks that passed/failed vs the strategy config (e.g., "Dropped -7.82% (threshold: -5%)", "Price above 200-MA", "RSI < oversold"). If a condition fails, it won't appear as a BUY.
 - **Timing**: timestamp shows when the scan ran; signals refresh each data refresh.
 
 ## Price & technicals
@@ -11,7 +11,7 @@
 - **RSI panel**: momentum/mean-reversion gauge (0–100). <30 = oversold, >70 = overbought. The strategy uses RSI to gate entries/exits.
 
 ## Strategy logic (defaults)
-- **Entry (BUY)**: day’s drop ≤ -5%, price above 200‑MA (uptrend), RSI < 30 (oversold), passes quality filters (market cap, P/E, volume). Signal strength blends RSI, drop size, volume vs average, and trend alignment.
+- **Entry (BUY)**: day's drop ≤ -5%, price above 200‑MA (uptrend), RSI < 30 (oversold), passes quality filters (market cap, P/E, volume). Signal strength blends RSI, drop size, volume vs average, and trend alignment.
 - **Exit (SELL)**: RSI > 70, or price ≥ target (+10% default), or price ≤ stop (-8% default), or held ≥ 30 days.
 - **Allocation guardrails**: max 10 positions; 10% of capital each; max 30% per sector; skips symbols already held.
 
@@ -24,7 +24,7 @@
 - **Quick actions**: buy a fixed share amount for the selected stock; sell if you already hold it.
 - **Backtest results** (when run): total/annualized return, Sharpe, max drawdown, win rate, average win/loss, trade counts; equity curve vs time.
 
-## Metrics in the sample signal shown
+## Example of a trade signal interpretation
 - **Symbol**: AMD; **Type**: BUY
 - **Strength 55%**: moderate conviction (RSI near threshold, drop size meets rule, trend filter passes).
 - **Entry $206.06**: current price used for entry math.
@@ -36,6 +36,6 @@
   - (RSI/quality check bullets would appear if those conditions passed/fail messages.)
 
 ## Tips
-- If you don’t see a signal for a big mover, check RSI/quality rules or whether the symbol is in the fetched set.
+- If you don't see a signal for a big mover, check RSI/quality rules or whether the symbol is in the fetched set.
 - If a click loads stale data, hit Refresh; the app refetches and rescans.
 - Adjust thresholds in Settings if you want more/less aggressive entries (e.g., RSI oversold 35 instead of 30, different dip threshold).***
