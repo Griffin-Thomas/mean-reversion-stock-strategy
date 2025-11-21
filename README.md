@@ -1,6 +1,6 @@
 # Mean Reversion Stock Strategy App
 
-React/TypeScript dashboard for a "buy the dip" mean-reversion strategy on a subset of S&P 500 names. It pulls free market data (Stooq/Yahoo) or simulated data for local use—no paid API needed.
+React/TypeScript dashboard for a "buy the dip" mean-reversion strategy on a subset of S&P 500 names. It pulls free market data (Stooq/Yahoo) or simulated data for local use. No paid API needed.
 
 ## Quick start
 ```bash
@@ -25,7 +25,7 @@ npm run dev
 ## Data flow (free)
 1) App calls the proxy at `http://localhost:8787/...`
 2) Proxy forwards to:
-   - Yahoo Finance for quotes/history (may rate-limit with 429s), and
+   - Yahoo Finance for quotes/history (may rate limit with 429 responses), and
    - Stooq for quotes/history (no key, EOD) as the first fallback when no Finnhub key.
 3) If both fail, the app uses consistent simulated data so the UI stays usable.
 
@@ -34,13 +34,13 @@ npm run dev
 - Chart with price, 50-day MA, volume, RSI panel; quick actions to buy/sell.
 - Heatmap and top movers (from the fetched subset) — click to load the chart.
 - Portfolio summary, P&L, and backtest results when run.
-For a deep dive on how to read these, see `INTERPRETATION.md`.
+For a deep dive on how to read these, see `docs/INTERPRETATION.md`.
 
 ## Strategy behavior
 - Entry: dip ≥ threshold, price above 200-MA, RSI < oversold, passes quality filters.
 - Exit: RSI > overbought, hit target, hit stop, or max holding days.
 - Allocation: caps positions/sector exposure and skips symbols already held.
-  Full implementation outline and structure live in `IMPLEMENTATION.md`.
+  Full implementation outline and structure live in `docs/IMPLEMENTATION.md`.
 
 ## Scripts
 - `npm run dev` – start Vite dev server.
