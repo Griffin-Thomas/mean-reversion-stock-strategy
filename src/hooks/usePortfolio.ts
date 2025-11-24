@@ -12,6 +12,8 @@ export function usePortfolio() {
     resetPortfolio,
     getStats,
     initializePortfolio,
+    exportState,
+    importState,
   } = usePortfolioStore();
 
   const { stocks } = useMarketStore();
@@ -64,5 +66,7 @@ export function usePortfolio() {
     handleSell,
     resetPortfolio,
     initializePortfolio,
+    exportState,
+    importState,
   };
 }

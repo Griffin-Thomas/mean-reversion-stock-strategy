@@ -7,12 +7,16 @@ interface PortfolioSummaryProps {
   portfolio: Portfolio;
   onPositionClick?: (position: Position) => void;
   onCapitalUpdate?: (amount: number) => void;
+  onExport?: () => { portfolio: Portfolio; trades: unknown[] };
+  onImport?: (data: { portfolio: Portfolio; trades: unknown[] }) => void;
 }
 
 export function PortfolioSummary({
   portfolio,
   onPositionClick,
   onCapitalUpdate,
+  onExport,
+  onImport,
 }: PortfolioSummaryProps) {
   const totalReturn = portfolio.initialCapital > 0
     ? ((portfolio.totalValue - portfolio.initialCapital) / portfolio.initialCapital) * 100
@@ -20,6 +24,7 @@ export function PortfolioSummary({
   const totalUnrealized = portfolio.positions.reduce((sum, p) => sum + p.unrealizedPnL, 0);
   const [capitalInput, setCapitalInput] = useState(portfolio.initialCapital.toFixed(0));
   const [capitalError, setCapitalError] = useState<string | null>(null);
+  const [importError, setImportError] = useState<string | null>(null);
 
   useEffect(() => {
     setCapitalInput(portfolio.initialCapital.toFixed(0));
@@ -34,6 +39,31 @@ export function PortfolioSummary({
     }
     setCapitalError(null);
     onCapitalUpdate(amount);
+  };
+
+  const handleExport = () => {
+    if (!onExport) return;
+    const data = onExport();
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'portfolio-backup.json';
+    link.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const handleImport = async (file?: File | null) => {
+    if (!file || !onImport) return;
+    try {
+      const text = await file.text();
+      const parsed = JSON.parse(text);
+      onImport(parsed);
+      setImportError(null);
+    } catch (error) {
+      console.error('Import failed:', error);
+      setImportError('Invalid file. Please select a JSON export from this app.');
+    }
   };
 
   return (
@@ -147,6 +177,41 @@ export function PortfolioSummary({
               Updates reset positions/trades to match the new starting capital.
             </p>
           </div>
+
+          {(onExport || onImport) && (
+            <div className="border-t pt-4 mt-4">
+              <h3 className="font-medium text-sm text-gray-600 mb-2">
+                Backup / Restore
+              </h3>
+              <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+                {onExport && (
+                  <button
+                    onClick={handleExport}
+                    className="px-4 py-2 bg-gray-100 text-gray-800 rounded text-sm font-medium hover:bg-gray-200"
+                  >
+                    Export JSON
+                  </button>
+                )}
+                {onImport && (
+                  <label className="cursor-pointer text-sm font-medium text-blue-600 hover:underline">
+                    Import JSON
+                    <input
+                      type="file"
+                      accept="application/json"
+                      className="hidden"
+                      onChange={e => handleImport(e.target.files?.[0])}
+                    />
+                  </label>
+                )}
+              </div>
+              {importError && (
+                <p className="text-xs text-red-600 mt-1">{importError}</p>
+              )}
+              <p className="text-xs text-gray-500 mt-1">
+                Export a backup and commit it (e.g., <code>portfolio-backup.json</code>) so you can restore after clearing site data.
+              </p>
+            </div>
+          )}
         </div>
       )}
     </div>

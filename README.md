@@ -51,3 +51,4 @@ For a deep dive on how to read these, see [`docs/INTERPRETATION.md`](docs/INTERP
 ## Notes
 - The app fetches a limited set (top ~25 + AMD) to respect free data limits.
 - If data looks stale or empty, restart the proxy and dev server, then hard refresh to clear cached responses/IndexedDB.
+- Portfolio state persists in browser storage; use the Export/Import buttons in Portfolio to save a `portfolio-backup.json` into the repo and restore after clearing site data.

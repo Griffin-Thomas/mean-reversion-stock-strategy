@@ -20,6 +20,8 @@ interface PortfolioState {
   updatePrices: (stocksData: Map<string, StockData>) => void;
   resetPortfolio: () => void;
   getStats: () => ReturnType<typeof calculatePortfolioStats>;
+  exportState: () => { portfolio: Portfolio; trades: Trade[] };
+  importState: (data: { portfolio: Portfolio; trades: Trade[] }) => void;
 }
 
 export const usePortfolioStore = create<PortfolioState>()(
@@ -80,6 +82,38 @@ export const usePortfolioStore = create<PortfolioState>()(
       getStats: () => {
         const { portfolio } = get();
         return calculatePortfolioStats(portfolio);
+      },
+
+      exportState: () => {
+        const { portfolio, trades } = get();
+        return { portfolio, trades };
+      },
+
+      importState: (data) => {
+        // Basic validation: require portfolio and trades arrays
+        if (!data || typeof data !== 'object') return;
+        const nextPortfolio = data.portfolio;
+        const nextTrades = Array.isArray(data.trades) ? data.trades : [];
+
+        // Rehydrate dates
+        if (nextPortfolio?.positions) {
+          nextPortfolio.positions = nextPortfolio.positions.map((p: Record<string, unknown>) => ({
+            ...p,
+            entryDate: new Date(p.entryDate as string),
+          }));
+        }
+        if (nextTrades) {
+          for (const t of nextTrades as Trade[]) {
+            if (t.date) (t as Trade).date = new Date(t.date as unknown as string);
+          }
+        }
+
+        if (nextPortfolio) {
+          set({
+            portfolio: nextPortfolio as unknown as Portfolio,
+            trades: nextTrades as Trade[],
+          });
+        }
       },
     }),
     {

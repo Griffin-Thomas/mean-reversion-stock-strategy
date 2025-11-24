@@ -25,7 +25,14 @@ export function Dashboard() {
   } = useStockData();
 
   const selectedStock = useSelectedStock();
-  const { portfolio, handleBuy, handleSell, initializePortfolio } = usePortfolio();
+  const {
+    portfolio,
+    handleBuy,
+    handleSell,
+    initializePortfolio,
+    exportState,
+    importState,
+  } = usePortfolio();
   const { results, isRunning, runFullBacktest } = useBacktest();
   const demoMode = isDemoMode();
 
@@ -144,6 +151,8 @@ export function Dashboard() {
               portfolio={portfolio}
               onPositionClick={handlePositionClick}
               onCapitalUpdate={initializePortfolio}
+              onExport={exportState}
+              onImport={importState}
             />
 
             {/* Quick Actions */}
