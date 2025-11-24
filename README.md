@@ -30,7 +30,7 @@ npm run dev
 3) If both fail, the app uses consistent simulated data so the UI stays usable.
 
 ## What you'll see
-- Signals list (BUY/SELL with strength, entry/target/stop, reasons).
+- Signals list (BUY/SELL with strength, entry/target/stop, reasons). Sells are generated for held positions when RSI/target/stop/time rules hit.
 - Chart with price, 50-day MA, volume, RSI panel; quick actions to buy/sell.
 - Heatmap and top movers (from the fetched subset) — click to load the chart.
 - Portfolio summary, P&L, and backtest results when run.

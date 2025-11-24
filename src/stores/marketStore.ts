@@ -1,8 +1,9 @@
 import { create } from 'zustand';
 import { StockData, TradingSignal } from '../types';
 import { fetchMultipleStocks, fetchStockData } from '../services/dataFetcher';
-import { scanForOpportunities } from '../services/strategyEngine';
+import { scanForOpportunities, checkPositionsForSells } from '../services/strategyEngine';
 import { SP500_SYMBOLS } from '../utils/constants';
+import { usePortfolioStore } from './portfolioStore';
 
 interface MarketState {
   stocks: Map<string, StockData>;
@@ -71,8 +72,17 @@ export const useMarketStore = create<MarketState>((set, get) => ({
     const { stocks } = get();
 
     try {
-      const signals = await scanForOpportunities(stocks);
-      set({ signals });
+      const buySignals = await scanForOpportunities(stocks);
+      const positions = usePortfolioStore.getState().portfolio.positions;
+      const sellSignals = checkPositionsForSells(positions, stocks);
+
+      // Put sells first, then buys by strength
+      const combined = [
+        ...sellSignals,
+        ...buySignals.sort((a, b) => b.signalStrength - a.signalStrength),
+      ];
+
+      set({ signals: combined });
     } catch (error) {
       set({ error: `Failed to scan for signals: ${error}` });
     }
